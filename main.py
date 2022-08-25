@@ -1400,9 +1400,11 @@ if isFull:
     ruleset["ruleset"] = ruleName
 
     print("exporting ruleset please wait...")
-
-    print(ruleset)
-
+    
+    file = open("ruleset.json", "w")
+    file.write(json.dumps(ruleset, indent=4))
+    
+    print("done")
 else:
     print("here all the card you created:")
     for card in cards:
