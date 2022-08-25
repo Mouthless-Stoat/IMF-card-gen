@@ -1,5 +1,6 @@
 import json
 
+
 def makeCard():
     name = input("please enter card name: ")
     description = input("please enter card description: ")
@@ -11,9 +12,9 @@ def makeCard():
     boneCost = input("please enter card bone cost: ")
     energyCost = input("please enter card energy cost: ")
     print()
-    rare = input("is this card rare? [y/n]: ")
-    hammer = input("can this card be hammer? [y/n]: ")
-    sac = input("can this card be sacrifice? [y/n]: ")
+    rare = input("is this card rare? [y/n]: ").lower()
+    hammer = input("can this card be hammer? [y/n]: ").lower()
+    sac = input("can this card be sacrifice? [y/n]: ").lower()
 
     workingSigils = [
         "Airborne",
@@ -112,13 +113,17 @@ def makeCard():
         "blood_cost": 0 if bloodCost == "" else int(bloodCost),
         "bone_cost": 0 if boneCost == "" else int(boneCost),
         "energy_cost": 0 if energyCost == "" else int(energyCost),
-        "rare": True if rare == "y"or rare != "" else False,
-        "nohammer": True if hammer == "y"or hammer != "" else False,
-        "nosac": True if sac == "y" or hammer != "" else False,
-        "sigils": [sigil1, sigil2],
     }
 
+    if rare == "y":
+        object["rare"] = True
+    if hammer == "y":
+        object["nohammer"] = True
+    if sac == "y":
+        object["nosac"] = True
+
     return object
+
 
 fullRule = input("do you want to generate the full ruleset or card json? [f/c]: ")
 isFull = True if fullRule == "f" else False
@@ -1391,7 +1396,7 @@ if isFull:
     for card in cards:
         print(f"card {card['name']} added")
         ruleset["cards"].append(card)
-    
+
     ruleset["ruleset"] = ruleName
 
     print("exporting ruleset please wait...")
@@ -1404,4 +1409,3 @@ else:
         print("====================\n")
         print(json.dumps(card))
         print("\n====================")
-
